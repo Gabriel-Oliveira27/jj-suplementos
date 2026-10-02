@@ -30,8 +30,9 @@ const marker = Permanent_Marker({
 });
 
 export const metadata: Metadata = {
-  // Defina NEXT_PUBLIC_SITE_URL com o domínio final para as prévias de link (WhatsApp, Instagram) saírem certas.
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3010"),
+  // Sem NEXT_PUBLIC_SITE_URL, o Next usa sozinho o endereço de produção da Vercel nas prévias de link
+  // (WhatsApp, Instagram). Defina a variável quando houver domínio próprio.
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
   title: "JJ Suplementos | Catálogo de suplementos em Iguatu - CE",
   description:
     "Loja referência em suplementação em Iguatu - CE. Proteínas, creatina, pré-treino, termogênicos, vitaminas e roupas de treino. Peça pelo WhatsApp.",
