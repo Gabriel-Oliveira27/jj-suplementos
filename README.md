@@ -13,6 +13,10 @@ npm run dev -- -p 3010
 
 Abra http://localhost:3010.
 
+## Indexação no Google
+
+O site está como **demonstração**: a página envia `noindex, nofollow` e não aparece no Google. Quando a loja aprovar, crie a variável `PERMITIR_INDEXACAO=true` nas configurações do projeto na Vercel e faça um novo deploy.
+
 ## Identidade visual
 
 - **Cores:** preto + amarelo da tenda dos eventos (faixas, botões) e dourado do espartano.

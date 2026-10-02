@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   title: "JJ Suplementos | Catálogo de suplementos em Iguatu - CE",
   description:
     "Loja referência em suplementação em Iguatu - CE. Proteínas, creatina, pré-treino, termogênicos, vitaminas e roupas de treino. Peça pelo WhatsApp.",
+  // Demonstração ainda não aprovada pela loja: fora do Google até PERMITIR_INDEXACAO=true na Vercel.
+  robots: process.env.PERMITIR_INDEXACAO === "true" ? undefined : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
