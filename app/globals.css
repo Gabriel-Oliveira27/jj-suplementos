@@ -1,26 +1,189 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Identidade da JJ Suplementos:
+ * - preto + amarelo da tenda dos eventos (fitas, botões, destaques)
+ * - dourado metálico do espartano (detalhes ligados à marca)
+ * - tipografia de pôster esportivo e anotações à mão do time
+ */
+@theme {
+  --color-preto: #0a0a0a;
+  --color-carvao: #111111;
+  --color-grafite: #1a1a1a;
+  --color-linha: #2b2b2b;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-amarelo: #f4b81c;
+  --color-amarelo-escuro: #c99410;
+  --color-ouro: #d4a62a;
+  --color-ouro-claro: #f2cd5c;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-osso: #efe8da;
+  --color-cinza: #9c968c;
+
+  --color-whatsapp: #25d366;
+
+  --font-sans: var(--font-barlow);
+  --font-display: var(--font-anton);
+  --font-cond: var(--font-barlow-condensed);
+  --font-marker: var(--font-marker);
+
+  --animate-correr: correr 38s linear infinite;
+  --animate-correr-reverso: correr 44s linear infinite reverse;
+  --animate-girar: girar 22s linear infinite;
+  --animate-flutuar: flutuar 6s ease-in-out infinite;
+  --animate-brilho: brilho 5s ease-in-out infinite;
+  --animate-pulso: pulso 2.4s ease-out infinite;
+
+  @keyframes correr {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes girar {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes flutuar {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+  @keyframes brilho {
+    0%,
+    55% {
+      transform: translateX(-120%) skewX(-18deg);
+    }
+    80%,
+    100% {
+      transform: translateX(220%) skewX(-18deg);
+    }
+  }
+  @keyframes pulso {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1.7);
+      opacity: 0;
+    }
   }
 }
 
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-preto);
+  color: var(--color-osso);
+}
+
+::selection {
+  background: var(--color-amarelo);
+  color: var(--color-preto);
+}
+
+/* Granulado de impressão por cima de tudo: tira a cara de tela "lisa demais". */
+@utility granulado {
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Cantos cortados, como placa de armadura / escudo. */
+@utility chanfro {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--corte, 18px)) 0,
+    100% var(--corte, 18px),
+    100% 100%,
+    var(--corte, 18px) 100%,
+    0 calc(100% - var(--corte, 18px))
+  );
+}
+
+/* Listras preto/amarelo das laterais da tenda. */
+@utility listras {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-amarelo) 0 14px,
+    var(--color-preto) 14px 28px
+  );
+}
+
+/* Letra vazada: o contorno usa a cor do texto (text-*), o miolo fica transparente. */
+@utility texto-contorno {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+
+@utility texto-ouro {
+  background-image: linear-gradient(180deg, var(--color-ouro-claro) 0%, var(--color-ouro) 55%, #a87b1e 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility sem-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Entrada dos diálogos nativos (modal de produto e gaveta do pedido). */
+dialog[open].modal-produto {
+  animation: modal-entrar 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+dialog[open].gaveta {
+  animation: gaveta-entrar 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+dialog[open]::backdrop {
+  animation: fundo-entrar 0.3s ease-out;
+}
+@keyframes modal-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+}
+@keyframes gaveta-entrar {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes fundo-entrar {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

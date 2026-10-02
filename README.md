@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JJ Suplementos — Catálogo
 
-## Getting Started
+Catálogo de produtos da **JJ Suplementos** (Iguatu - CE), feito com Next.js 16 (App Router), React 19, TypeScript e Tailwind CSS 4.
 
-First, run the development server:
+O cliente navega pelos produtos, filtra por objetivo/categoria, monta uma lista ("Meu pedido") e envia tudo pronto para um consultor no WhatsApp — o mesmo fluxo de venda que a loja já usa ("chama no Direct ou via WhatsApp").
+
+## Rodando
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev -- -p 3010
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra http://localhost:3010.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Identidade visual
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Cores:** preto + amarelo da tenda dos eventos (faixas, botões) e dourado do espartano.
+- **Tipografia:** Anton (títulos de pôster), Barlow Condensed (rótulos), Barlow (texto) e Permanent Marker (anotações "à mão" do time).
+- **Formas:** cantos chanfrados (`chanfro` em `app/globals.css`), listras preto/amarelo, granulado de impressão e polaroids com fita.
+- **Animações** (biblioteca [Motion](https://motion.dev)): títulos revelados por máscara, parallax do espartano, selo girando, faixas correndo, lista de objetivos com preenchimento, grade do catálogo que se reorganiza ao filtrar, produto "voando" até a sacola. Quem ativa "reduzir movimento" no sistema recebe a versão sem deslocamento.
 
-## Learn More
+## Onde editar
 
-To learn more about Next.js, take a look at the following resources:
+| O quê | Arquivo |
+| --- | --- |
+| Produtos (nome, marca, descrição, fotos, sabores/cores, preço opcional) | `lib/produtos.ts` |
+| Endereço, consultores, WhatsApp, redes sociais | `lib/loja.ts` |
+| Cores da marca (preto + dourado do espartano) | `app/globals.css` (`@theme`) |
+| Fotos dos produtos | `public/produtos/` |
+| Logo e artes | `public/marca/`, `app/icon.png` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Preço:** a loja não divulga preços publicamente, então os cards mostram "Consulte o valor". Preencha `preco` em um produto para exibir o valor.
+- **Sem foto:** produtos com `imagens: []` usam a arte padrão com o espartano.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## De onde veio o conteúdo
 
-## Deploy on Vercel
+Levantado das páginas públicas da loja (outubro de 2026):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Instagram [@jjsuplementosoficialiguatu](https://www.instagram.com/jjsuplementosoficialiguatu/) — bio, posts de produtos e camisetas.
+- Facebook [JJsuplementosoficial](https://www.facebook.com/JJsuplementosoficial) — logo, fotos e legendas dos produtos.
+- Linktree [linktr.ee/Jorbson](https://linktr.ee/Jorbson) — consultores (Jorbson, Jonathan, Hiago), WhatsApp e endereço.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Antes de publicar, confirme com a loja:
+
+- **Endereço:** o Linktree aponta Rua Rosemira Guedes dos Santos, 82 (Cajueiro); o Facebook mostra Rua Francisco Holanda Montenegro, 290; o Bing mostra Rua Alto da Gangorra, 331. O site usa o do Linktree.
+- **Whey Protein, Pré-treino e Meias de treino** entraram como itens "consulte marcas/modelos" (aparecem nos destaques e eventos, mas sem foto de produto específico).
+- Autorização para uso das fotos e da marca.
